@@ -1,177 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SDJ Productions — Policies</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<title>SDJ Productions — Policies</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    :root {
-      --bg: #0b0f1a;
-      --panel: #12182a;
-      --accent: #3b82f6;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --danger: #ef4444;
-      --warn: #f59e0b;
-      --radius: 14px;
-    }
+<style>
+:root {
+  --bg: #0b0f1a;
+  --accent: #3b82f6;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --danger: #ef4444;
+  --radius: 14px;
+}
 
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, sans-serif;
-      background: radial-gradient(circle at top, #10172a, var(--bg));
-      color: var(--text);
-    }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: radial-gradient(circle at top, #10172a, var(--bg));
+  color: var(--text);
+}
 
-    header {
-      padding: 60px 20px;
-      text-align: center;
-    }
+/* HEADER */
+header {
+  padding: 60px 20px;
+  text-align: center;
+}
 
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 20px;
-      display: grid;
-      gap: 24px;
-    }
+header h1 {
+  font-size: clamp(32px, 5vw, 52px);
+}
 
-    section {
-      position: relative;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 24px;
-    }
+header p {
+  color: var(--muted);
+  max-width: 700px;
+  margin: auto;
+}
 
-    h2 { color: var(--accent); }
+/* LAYOUT */
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  display: grid;
+  gap: 24px;
+}
 
-    ul { padding-left: 20px; }
+section {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 24px;
+}
 
-    /* ===== LOCKED SECTIONS ===== */
-    .locked {
-      overflow: hidden;
-    }
+h2 {
+  color: var(--accent);
+  margin-top: 0;
+}
 
-    .locked .content {
-      filter: blur(10px);
-      pointer-events: none;
-      user-select: none;
-    }
+ul {
+  padding-left: 20px;
+}
 
-    .lock-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(11,15,26,0.85);
-      backdrop-filter: blur(4px);
-      border-radius: var(--radius);
-      text-align: center;
-      padding: 30px;
-    }
+/* ===== PUNISHMENT TIERS ===== */
+.tiers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
 
-    .lock-box {
-      max-width: 420px;
-    }
+.tier {
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1f2937;
+}
 
-    .lock-box h3 {
-      margin: 0 0 10px;
-      color: var(--danger);
-      font-size: 22px;
-    }
+/* Tier color progression */
+.tier-1 {
+  background: linear-gradient(90deg, #fef9c3, #fde68a);
+}
 
-    .lock-box p {
-      color: var(--muted);
-      font-size: 15px;
-    }
+.tier-2 {
+  background: linear-gradient(90deg, #fde68a, #fbbf24);
+}
 
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-  </style>
+.tier-3 {
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+  color: #1f1300;
+}
+
+.tier-4 {
+  background: linear-gradient(90deg, #f97316, #ef4444);
+  color: #ffffff;
+  animation: pulse 2s infinite;
+}
+
+/* Tier 4 Pulse */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239,68,68,0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(239,68,68,0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239,68,68,0);
+  }
+}
+
+/* ===== LOCKED SECTIONS ===== */
+.locked {
+  overflow: hidden;
+}
+
+.locked .content {
+  filter: blur(10px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.lock-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11,15,26,0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.lock-box h3 {
+  color: var(--danger);
+  margin-bottom: 10px;
+}
+
+.lock-box p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  font-size: 14px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
   <h1>SDJ Productions</h1>
-  <p>Official Rules, Policies, and Internal Moderation Guidelines</p>
+  <p>Official Rules, Punishment System, and Internal Moderation Policies</p>
 </header>
 
 <main>
 
-  <!-- PUBLIC RULES -->
-  <section>
-    <h2>📜 Public Rules & Terms</h2>
+<!-- PUBLIC RULES -->
+<section>
+  <h2>📜 Public Rules & Terms</h2>
+  <ul>
+    <li>All members must remain respectful and professional.</li>
+    <li>All assets are licensed, not owned.</li>
+    <li><strong>No reselling, sharing, or redistribution of assets.</strong></li>
+    <li>Chargebacks or fraud result in permanent blacklist.</li>
+  </ul>
+</section>
+
+<!-- PUNISHMENT TIERS -->
+<section>
+  <h2>⚖️ Punishment Tiers</h2>
+  <ul class="tiers">
+    <li class="tier tier-1">Tier 1 — Warning</li>
+    <li class="tier tier-2">Tier 2 — Timeout / Mute</li>
+    <li class="tier tier-3">Tier 3 — Kick / Temporary Ban</li>
+    <li class="tier tier-4">Tier 4 — Permanent Ban & Blacklist</li>
+  </ul>
+</section>
+
+<!-- STAFF MOD GUIDE -->
+<section class="locked">
+  <div class="content">
+    <h2>🔒 Staff Moderation Guide</h2>
     <ul>
-      <li>Remain respectful and professional.</li>
-      <li>All assets are licensed, not owned.</li>
-      <li><strong>No reselling, sharing, or redistribution.</strong></li>
-      <li>Chargebacks result in permanent blacklist.</li>
+      <li>Follow standard moderation flow</li>
+      <li>Collect evidence</li>
+      <li>Log all actions</li>
     </ul>
-  </section>
+  </div>
 
-  <!-- PUNISHMENT TIERS -->
-  <section>
-    <h2>⚖️ Punishment Tiers</h2>
+  <div class="lock-overlay">
+    <div class="lock-box">
+      <h3>🔒 Staff Only</h3>
+      <p>This section is restricted to SDJ Productions staff.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SENIOR STAFF GUIDE -->
+<section class="locked">
+  <div class="content">
+    <h2>🔐 Senior Staff Guide</h2>
     <ul>
-      <li>Tier 1 — Warning</li>
-      <li>Tier 2 — Mute / Timeout</li>
-      <li>Tier 3 — Kick / Temporary Ban</li>
-      <li>Tier 4 — Permanent Ban & Blacklist</li>
+      <li>Handle appeals and escalations</li>
+      <li>Override moderator decisions</li>
+      <li>Manage staff discipline</li>
     </ul>
-  </section>
+  </div>
 
-  <!-- STAFF MOD GUIDE (LOCKED) -->
-  <section class="locked">
-    <div class="content">
-      <h2>🔒 Staff Moderation Guide</h2>
-      <ul>
-        <li>Follow moderation flow</li>
-        <li>Collect evidence</li>
-        <li>Log all actions</li>
-      </ul>
+  <div class="lock-overlay">
+    <div class="lock-box">
+      <h3>🔐 Senior Staff Only</h3>
+      <p>Confidential leadership documentation.</p>
     </div>
-
-    <div class="lock-overlay">
-      <div class="lock-box">
-        <h3>🔒 Staff Only</h3>
-        <p>
-          This section is restricted to SDJ Productions staff.<br>
-          Unauthorized access is not permitted.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SENIOR STAFF GUIDE (LOCKED) -->
-  <section class="locked">
-    <div class="content">
-      <h2>🔐 Senior Staff Guide</h2>
-      <ul>
-        <li>Override decisions</li>
-        <li>Handle appeals</li>
-        <li>Manage staff discipline</li>
-      </ul>
-    </div>
-
-    <div class="lock-overlay">
-      <div class="lock-box">
-        <h3>🔐 Senior Staff Only</h3>
-        <p>
-          Confidential leadership documentation.<br>
-          Access limited to authorized senior staff.
-        </p>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
