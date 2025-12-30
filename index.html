@@ -14,36 +14,21 @@
       --muted: #9ca3af;
       --danger: #ef4444;
       --warn: #f59e0b;
-      --success: #22c55e;
       --radius: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: "Inter", system-ui, sans-serif;
+      font-family: Inter, system-ui, sans-serif;
       background: radial-gradient(circle at top, #10172a, var(--bg));
       color: var(--text);
-      line-height: 1.6;
     }
 
     header {
       padding: 60px 20px;
       text-align: center;
-    }
-
-    header h1 {
-      font-size: clamp(32px, 5vw, 52px);
-      margin-bottom: 10px;
-    }
-
-    header p {
-      color: var(--muted);
-      max-width: 700px;
-      margin: auto;
     }
 
     main {
@@ -55,53 +40,61 @@
     }
 
     section {
+      position: relative;
       background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: var(--radius);
       padding: 24px;
     }
 
-    section h2 {
-      margin-top: 0;
-      color: var(--accent);
-      font-size: 24px;
+    h2 { color: var(--accent); }
+
+    ul { padding-left: 20px; }
+
+    /* ===== LOCKED SECTIONS ===== */
+    .locked {
+      overflow: hidden;
     }
 
-    section h3 {
-      margin-bottom: 8px;
-      margin-top: 20px;
+    .locked .content {
+      filter: blur(10px);
+      pointer-events: none;
+      user-select: none;
     }
 
-    ul {
-      padding-left: 20px;
+    .lock-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(11,15,26,0.85);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius);
+      text-align: center;
+      padding: 30px;
     }
 
-    li {
-      margin-bottom: 6px;
+    .lock-box {
+      max-width: 420px;
     }
 
-    .tag {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      margin-right: 6px;
+    .lock-box h3 {
+      margin: 0 0 10px;
+      color: var(--danger);
+      font-size: 22px;
     }
 
-    .danger { background: rgba(239,68,68,0.15); color: var(--danger); }
-    .warn { background: rgba(245,158,11,0.15); color: var(--warn); }
-    .success { background: rgba(34,197,94,0.15); color: var(--success); }
+    .lock-box p {
+      color: var(--muted);
+      font-size: 15px;
+    }
 
     footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 40px;
       color: var(--muted);
       font-size: 14px;
-    }
-
-    .staff-only {
-      border-left: 4px solid var(--danger);
-      background: linear-gradient(180deg, rgba(239,68,68,0.05), transparent);
     }
   </style>
 </head>
@@ -109,7 +102,7 @@
 
 <header>
   <h1>SDJ Productions</h1>
-  <p>Official Rules, Policies, and Internal Moderation Guidelines for Roblox Asset Development & Sales.</p>
+  <p>Official Rules, Policies, and Internal Moderation Guidelines</p>
 </header>
 
 <main>
@@ -117,108 +110,67 @@
   <!-- PUBLIC RULES -->
   <section>
     <h2>📜 Public Rules & Terms</h2>
-
-    <h3>Respect & Conduct</h3>
     <ul>
-      <li>Remain respectful and professional at all times.</li>
-      <li>No harassment, discrimination, or toxic behavior.</li>
-    </ul>
-
-    <h3>Intellectual Property</h3>
-    <ul>
-      <li>All assets are owned by SDJ Productions.</li>
-      <li>Purchases grant a license, not ownership.</li>
-    </ul>
-
-    <h3>No Reselling or Redistribution</h3>
-    <ul>
-      <li><strong>Reselling, re-uploading, or sharing assets is strictly prohibited.</strong></li>
-      <li>This includes free distribution and bundled resale.</li>
-    </ul>
-
-    <h3>Permitted Usage</h3>
-    <ul>
-      <li>Assets may be used only in your own Roblox projects.</li>
-      <li>Editing is allowed for personal/project use.</li>
-    </ul>
-
-    <h3>Payments & Refunds</h3>
-    <ul>
-      <li>All digital sales are final.</li>
-      <li>Chargebacks result in a permanent blacklist.</li>
+      <li>Remain respectful and professional.</li>
+      <li>All assets are licensed, not owned.</li>
+      <li><strong>No reselling, sharing, or redistribution.</strong></li>
+      <li>Chargebacks result in permanent blacklist.</li>
     </ul>
   </section>
 
   <!-- PUNISHMENT TIERS -->
   <section>
     <h2>⚖️ Punishment Tiers</h2>
-
-    <p><span class="tag warn">Tier 1</span><strong>Warning</strong> — Minor violations.</p>
-    <p><span class="tag warn">Tier 2</span><strong>Mute / Timeout</strong> — Repeated or moderate offenses.</p>
-    <p><span class="tag danger">Tier 3</span><strong>Kick / Temp Ban</strong> — Serious misconduct.</p>
-    <p><span class="tag danger">Tier 4</span><strong>Permanent Ban & Blacklist</strong> — Zero tolerance offenses.</p>
-
-    <h3>Zero Tolerance Includes:</h3>
     <ul>
-      <li>Asset reselling or leaking</li>
-      <li>Chargebacks or fraud</li>
-      <li>Cracking or bypassing protections</li>
-      <li>Impersonation of staff</li>
+      <li>Tier 1 — Warning</li>
+      <li>Tier 2 — Mute / Timeout</li>
+      <li>Tier 3 — Kick / Temporary Ban</li>
+      <li>Tier 4 — Permanent Ban & Blacklist</li>
     </ul>
   </section>
 
-  <!-- STAFF MOD GUIDE -->
-  <section class="staff-only">
-    <h2>🔒 Staff Moderation Guide</h2>
+  <!-- STAFF MOD GUIDE (LOCKED) -->
+  <section class="locked">
+    <div class="content">
+      <h2>🔒 Staff Moderation Guide</h2>
+      <ul>
+        <li>Follow moderation flow</li>
+        <li>Collect evidence</li>
+        <li>Log all actions</li>
+      </ul>
+    </div>
 
-    <h3>Staff Expectations</h3>
-    <ul>
-      <li>Remain unbiased and professional.</li>
-      <li>Do not argue publicly.</li>
-      <li>Keep staff discussions confidential.</li>
-    </ul>
-
-    <h3>Moderation Flow</h3>
-    <ul>
-      <li>Identify violation</li>
-      <li>Collect evidence</li>
-      <li>Apply punishment tier</li>
-      <li>Log the action</li>
-    </ul>
-
-    <h3>Logging</h3>
-    <ul>
-      <li>User ID & username</li>
-      <li>Rule broken</li>
-      <li>Punishment issued</li>
-      <li>Moderator name</li>
-    </ul>
+    <div class="lock-overlay">
+      <div class="lock-box">
+        <h3>🔒 Staff Only</h3>
+        <p>
+          This section is restricted to SDJ Productions staff.<br>
+          Unauthorized access is not permitted.
+        </p>
+      </div>
+    </div>
   </section>
 
-  <!-- SENIOR STAFF GUIDE -->
-  <section class="staff-only">
-    <h2>🔐 Senior Staff Guide</h2>
+  <!-- SENIOR STAFF GUIDE (LOCKED) -->
+  <section class="locked">
+    <div class="content">
+      <h2>🔐 Senior Staff Guide</h2>
+      <ul>
+        <li>Override decisions</li>
+        <li>Handle appeals</li>
+        <li>Manage staff discipline</li>
+      </ul>
+    </div>
 
-    <h3>Authority</h3>
-    <ul>
-      <li>Override moderator actions</li>
-      <li>Issue permanent bans & blacklists</li>
-      <li>Handle fraud, IP theft, and appeals</li>
-    </ul>
-
-    <h3>Escalations</h3>
-    <ul>
-      <li>Ban appeals</li>
-      <li>Staff misconduct</li>
-      <li>Legal or reputation risks</li>
-    </ul>
-
-    <h3>Leadership Standards</h3>
-    <ul>
-      <li>Set an example</li>
-      <li>Mentor moderators</li>
-      <li>Protect SDJ Productions’ integrity</li>
-    </ul>
+    <div class="lock-overlay">
+      <div class="lock-box">
+        <h3>🔐 Senior Staff Only</h3>
+        <p>
+          Confidential leadership documentation.<br>
+          Access limited to authorized senior staff.
+        </p>
+      </div>
+    </div>
   </section>
 
 </main>
