@@ -2,74 +2,90 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>SDJ Productions — Official Policies</title>
+<title>SDJ Productions — Studio Policies</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --bg: #0b0f1a;
-  --panel: #12182a;
-  --accent: #3b82f6;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
+  --bg: #070b17;
+  --glass: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.12);
+  --accent: #4f8cff;
+  --accent-soft: rgba(79,140,255,0.25);
+  --text: #e6eaff;
+  --muted: #9aa4c7;
   --danger: #ef4444;
-  --radius: 14px;
+  --radius: 18px;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
-  background: var(--bg);
+  font-family: "Inter", system-ui, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(79,140,255,0.12), transparent),
+    radial-gradient(800px 400px at 90% 10%, rgba(239,68,68,0.08), transparent),
+    var(--bg);
   color: var(--text);
-  display: flex;
   height: 100vh;
+  display: flex;
   overflow: hidden;
 }
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-  width: 260px;
-  background: linear-gradient(180deg, #0e1430, #0b0f1a);
-  padding: 30px 20px;
-  border-right: 1px solid rgba(255,255,255,0.08);
+  width: 280px;
+  padding: 36px 26px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
+  border-right: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
 }
 
-.sidebar h2 {
-  margin: 0 0 20px;
+.brand {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 30px;
   color: var(--accent);
 }
 
-.sidebar button {
+.nav-btn {
   width: 100%;
-  padding: 12px 14px;
-  margin-bottom: 8px;
+  background: transparent;
   border: none;
-  background: none;
   color: var(--text);
   text-align: left;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.2s;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 14px;
   font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.sidebar button:hover,
-.sidebar button.active {
-  background: rgba(59,130,246,0.18);
+.nav-btn:hover {
+  background: var(--glass);
 }
 
-/* ===== CONTENT AREA ===== */
+.nav-btn.active {
+  background: linear-gradient(90deg, var(--accent-soft), transparent);
+  box-shadow: inset 0 0 0 1px rgba(79,140,255,0.35);
+}
+
+/* ===== CONTENT ===== */
 main {
   flex: 1;
-  padding: 40px;
-  overflow-y: auto;
+  padding: 50px;
+  overflow: hidden;
 }
 
 .section {
   display: none;
-  animation: fadeIn 0.25s ease;
+  animation: fadeIn 0.3s ease;
 }
 
 .section.active {
@@ -77,29 +93,57 @@ main {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.section-box {
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
-  border: 1px solid rgba(255,255,255,0.08);
+.panel {
+  background: linear-gradient(180deg, var(--glass), transparent);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  padding: 30px;
+  padding: 40px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 40px 120px rgba(0,0,0,0.45);
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 30px;
+  letter-spacing: -0.6px;
+}
+
+.panel h3 {
+  margin-top: 32px;
+}
+
+.panel p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.panel ul {
+  padding-left: 20px;
+}
+
+.panel li {
+  margin-bottom: 10px;
+  color: var(--muted);
 }
 
 /* ===== TIERS ===== */
 .tiers {
   list-style: none;
   padding: 0;
+  margin-top: 24px;
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .tier {
-  padding: 14px 18px;
-  border-radius: 14px;
+  padding: 18px 22px;
+  border-radius: 16px;
   font-weight: 700;
+  font-size: 15px;
 }
 
 .tier-1 { background: linear-gradient(90deg,#fef9c3,#fde68a); color:#1f2937; }
@@ -107,31 +151,32 @@ main {
 .tier-3 { background: linear-gradient(90deg,#fbbf24,#f97316); color:#1f1300; }
 .tier-4 {
   background: linear-gradient(90deg,#f97316,#ef4444);
-  color:#fff;
+  color: white;
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(239,68,68,.6); }
-  70% { box-shadow: 0 0 0 16px rgba(239,68,68,0); }
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7); }
+  70% { box-shadow: 0 0 0 18px rgba(239,68,68,0); }
   100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
 }
 
 /* ===== LOCKED ===== */
 .locked {
   position: relative;
+  overflow: hidden;
 }
 
 .locked .blur {
-  filter: blur(10px);
+  filter: blur(12px);
   pointer-events: none;
-  user-select: none;
 }
 
 .lock-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(11,15,26,0.88);
+  background: rgba(7,11,23,0.88);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,12 +185,19 @@ main {
 
 .lock-overlay h3 {
   color: var(--danger);
+  margin-bottom: 10px;
 }
 
+.lock-overlay p {
+  color: var(--muted);
+}
+
+/* FOOTER */
 footer {
   margin-top: 30px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
+  text-align: center;
 }
 </style>
 </head>
@@ -154,100 +206,62 @@ footer {
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-  <h2>SDJ Productions</h2>
-  <button class="nav active" data-target="about">About Us</button>
-  <button class="nav" data-target="rules">Rules</button>
-  <button class="nav" data-target="tiers">Warning Tiers</button>
-  <button class="nav" data-target="roadmap">Development Road</button>
-  <button class="nav" data-target="staff">Staff Guide</button>
-  <button class="nav" data-target="moderation">Moderation Guide</button>
-  <button class="nav" data-target="executive">Executive Guide</button>
+  <div class="brand">SDJ Productions</div>
+  <button class="nav-btn active" data-target="about">About Us</button>
+  <button class="nav-btn" data-target="rules">Rules</button>
+  <button class="nav-btn" data-target="tiers">Warning Tiers</button>
+  <button class="nav-btn" data-target="roadmap">Development Road</button>
+  <button class="nav-btn" data-target="staff">Staff Guide</button>
+  <button class="nav-btn" data-target="moderation">Moderation Guide</button>
+  <button class="nav-btn" data-target="executive">Executive Guide</button>
 </div>
 
 <!-- CONTENT -->
 <main>
 
+<!-- ABOUT -->
 <div id="about" class="section active">
-  <div class="section-box">
-    <h2>About Us</h2>
-   <p>
-  <strong>SDJ Productions</strong> is a professional Roblox production and development company
-  specializing in high-quality assets, systems, user interfaces, and custom solutions
-  for Roblox experiences.
-</p>
+  <div class="panel">
+    <h2>About SDJ Productions</h2>
+    <p>
+      <strong>SDJ Productions</strong> is a professional Roblox production studio
+      specializing in high-quality assets, systems, user interfaces, and secure
+      development solutions.
+    </p>
+    <p>
+      We focus on originality, performance, and long-term usability. Every product
+      is designed with scalability, security, and professionalism in mind.
+    </p>
 
-<p>
-  Our goal is to provide reliable, secure, and modern development work that meets
-  industry standards while remaining accessible to creators of all sizes. We focus
-  heavily on originality, performance, and long-term usability in every product we
-  create.
-</p>
-
-<p>
-  At SDJ Productions, we take intellectual property and asset protection seriously.
-  All work is licensed, not sold, ensuring our creations remain protected while giving
-  clients the flexibility they need to build professional experiences.
-</p>
-
-<p>
-  We operate with clear rules, structured moderation, and transparent policies to
-  maintain a safe, professional environment for clients, staff, and partners.
-  Quality, integrity, and consistency are at the core of everything we do.
-</p>
-
-  </div>
-</div>
-
-  <h3>Why Choose SDJ Productions?</h3>
-
-<ul>
-  <li>
-    <strong>Professional Standards</strong> — We follow structured development,
-    moderation, and licensing practices to ensure consistency and reliability.
-  </li>
-
-  <li>
-    <strong>Original & Secure Assets</strong> — Every asset is created in-house with
-    originality in mind and protected against unauthorized redistribution.
-  </li>
-
-  <li>
-    <strong>Clear Licensing & Rules</strong> — Our policies are transparent, fair,
-    and easy to understand, protecting both our clients and our work.
-  </li>
-
-  <li>
-    <strong>Quality Over Quantity</strong> — We prioritize performance, optimization,
-    and clean design rather than rushed or low-effort products.
-  </li>
-
-  <li>
-    <strong>Trusted Support</strong> — Clients receive professional communication,
-    structured support, and clear expectations throughout the process.
-  </li>
-
-  <li>
-    <strong>Long-Term Vision</strong> — SDJ Productions is built for sustainability,
-    growth, and long-term partnerships — not short-term sales.
-  </li>
-</ul>
-
-  
-<div id="rules" class="section">
-  <div class="section-box">
-    <h2>Rules</h2>
+    <h3>Why Choose SDJ Productions?</h3>
     <ul>
-      <li>Assets are licensed, not owned.</li>
-      <li>No reselling, redistribution, or leaks.</li>
-      <li>Use assets only in your own projects.</li>
-      <li>Chargebacks result in permanent blacklist.</li>
-      <li>Cracking or bypassing protections is prohibited.</li>
+      <li><strong>Industry-Grade Standards</strong> — Structured workflows and policies.</li>
+      <li><strong>Secure & Original Assets</strong> — No recycled or stolen content.</li>
+      <li><strong>Clear Licensing</strong> — Transparent and enforceable rules.</li>
+      <li><strong>Quality-Driven</strong> — Optimization over shortcuts.</li>
+      <li><strong>Long-Term Vision</strong> — Built for growth, not quick sales.</li>
     </ul>
   </div>
 </div>
 
+<!-- RULES -->
+<div id="rules" class="section">
+  <div class="panel">
+    <h2>Rules</h2>
+    <ul>
+      <li>All assets are licensed, not owned.</li>
+      <li>No reselling, redistribution, or leaking.</li>
+      <li>Assets may only be used in your own Roblox projects.</li>
+      <li>Chargebacks or fraud result in permanent blacklist.</li>
+      <li>Cracking or bypassing protections is prohibited.</li>
+      <li>Harassment or abuse toward staff is not tolerated.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- TIERS -->
 <div id="tiers" class="section">
-  <div class="section-box">
+  <div class="panel">
     <h2>Warning Tiers</h2>
     <ul class="tiers">
       <li class="tier tier-1">Tier 1 — Warning</li>
@@ -258,46 +272,40 @@ footer {
   </div>
 </div>
 
+<!-- ROADMAP -->
 <div id="roadmap" class="section">
-  <div class="section-box">
+  <div class="panel">
     <h2>Development Road</h2>
     <ul>
-      <li>Expand asset catalog</li>
-      <li>Premium systems</li>
-      <li>Security & licensing improvements</li>
-      <li>Company growth</li>
+      <li>Expand premium asset catalog</li>
+      <li>Advanced systems & frameworks</li>
+      <li>Improved licensing & security</li>
+      <li>Studio partnerships & scaling</li>
     </ul>
   </div>
 </div>
 
+<!-- STAFF -->
 <div id="staff" class="section">
-  <div class="section-box locked">
+  <div class="panel locked">
     <div class="blur">
       <h2>Staff Guide</h2>
-      <ul>
-        <li>Professional conduct</li>
-        <li>Log all actions</li>
-        <li>Follow hierarchy</li>
-      </ul>
+      <ul><li>Internal policies</li></ul>
     </div>
     <div class="lock-overlay">
       <div>
         <h3>🔒 Staff Only</h3>
-        <p>Restricted SDJ Productions documentation.</p>
+        <p>Restricted internal documentation.</p>
       </div>
     </div>
   </div>
 </div>
 
+<!-- MODERATION -->
 <div id="moderation" class="section">
-  <div class="section-box locked">
+  <div class="panel locked">
     <div class="blur">
       <h2>Moderation Guide</h2>
-      <ul>
-        <li>Collect evidence</li>
-        <li>Apply correct tier</li>
-        <li>Remain unbiased</li>
-      </ul>
     </div>
     <div class="lock-overlay">
       <div>
@@ -308,20 +316,16 @@ footer {
   </div>
 </div>
 
+<!-- EXECUTIVE -->
 <div id="executive" class="section">
-  <div class="section-box locked">
+  <div class="panel locked">
     <div class="blur">
       <h2>Executive Guide</h2>
-      <ul>
-        <li>Final authority</li>
-        <li>Legal & IP protection</li>
-        <li>Staff management</li>
-      </ul>
     </div>
     <div class="lock-overlay">
       <div>
         <h3>🔐 Executive Only</h3>
-        <p>Confidential leadership documentation.</p>
+        <p>Confidential leadership material.</p>
       </div>
     </div>
   </div>
@@ -334,7 +338,7 @@ footer {
 </main>
 
 <script>
-const buttons = document.querySelectorAll(".nav");
+const buttons = document.querySelectorAll(".nav-btn");
 const sections = document.querySelectorAll(".section");
 
 buttons.forEach(btn => {
