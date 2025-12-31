@@ -24,6 +24,8 @@ body {
   background: var(--bg);
   color: var(--text);
   display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* ===== SIDEBAR ===== */
@@ -31,57 +33,59 @@ body {
   width: 260px;
   background: linear-gradient(180deg, #0e1430, #0b0f1a);
   padding: 30px 20px;
-  position: fixed;
-  height: 100vh;
   border-right: 1px solid rgba(255,255,255,0.08);
 }
 
 .sidebar h2 {
   margin: 0 0 20px;
-  font-size: 22px;
   color: var(--accent);
 }
 
-.sidebar a {
-  display: block;
+.sidebar button {
+  width: 100%;
   padding: 12px 14px;
   margin-bottom: 8px;
-  text-decoration: none;
+  border: none;
+  background: none;
   color: var(--text);
+  text-align: left;
   border-radius: 10px;
+  cursor: pointer;
   transition: 0.2s;
+  font-size: 15px;
 }
 
-.sidebar a:hover {
-  background: rgba(59,130,246,0.15);
+.sidebar button:hover,
+.sidebar button.active {
+  background: rgba(59,130,246,0.18);
 }
 
-/* ===== MAIN CONTENT ===== */
+/* ===== CONTENT AREA ===== */
 main {
-  margin-left: 260px;
+  flex: 1;
   padding: 40px;
-  max-width: 1100px;
+  overflow-y: auto;
 }
 
-section {
-  margin-bottom: 60px;
-  padding: 30px;
+.section {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-box {
   background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius);
-}
-
-h1 {
-  margin-top: 0;
-}
-
-h2 {
-  color: var(--accent);
-  margin-top: 0;
-}
-
-ul {
-  padding-left: 20px;
+  padding: 30px;
 }
 
 /* ===== TIERS ===== */
@@ -113,13 +117,12 @@ ul {
   100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
 }
 
-/* ===== LOCKED SECTIONS ===== */
+/* ===== LOCKED ===== */
 .locked {
   position: relative;
-  overflow: hidden;
 }
 
-.locked .content {
+.locked .blur {
   filter: blur(10px);
   pointer-events: none;
   user-select: none;
@@ -135,20 +138,14 @@ ul {
   text-align: center;
 }
 
-.lock-box h3 {
+.lock-overlay h3 {
   color: var(--danger);
 }
 
-.lock-box p {
-  color: var(--muted);
-}
-
-/* FOOTER */
 footer {
+  margin-top: 30px;
   color: var(--muted);
   font-size: 14px;
-  text-align: center;
-  margin-top: 40px;
 }
 </style>
 </head>
@@ -156,122 +153,144 @@ footer {
 <body>
 
 <!-- SIDEBAR -->
-<nav class="sidebar">
+<div class="sidebar">
   <h2>SDJ Productions</h2>
-  <a href="#about">About Us</a>
-  <a href="#rules">Rules</a>
-  <a href="#tiers">Warning Tiers</a>
-  <a href="#roadmap">Development Road</a>
-  <a href="#staff">Staff Guide</a>
-  <a href="#moderation">Moderation Guide</a>
-  <a href="#executive">Executive Guide</a>
-</nav>
+  <button class="nav active" data-target="about">About Us</button>
+  <button class="nav" data-target="rules">Rules</button>
+  <button class="nav" data-target="tiers">Warning Tiers</button>
+  <button class="nav" data-target="roadmap">Development Road</button>
+  <button class="nav" data-target="staff">Staff Guide</button>
+  <button class="nav" data-target="moderation">Moderation Guide</button>
+  <button class="nav" data-target="executive">Executive Guide</button>
+</div>
 
+<!-- CONTENT -->
 <main>
 
-<!-- ABOUT -->
-<section id="about">
-  <h2>About Us</h2>
-  <p>
-    SDJ Productions is a professional Roblox production company focused on
-    high-quality assets, systems, UI, and development services. We prioritize
-    originality, security, and professionalism in everything we produce.
-  </p>
-</section>
+<div id="about" class="section active">
+  <div class="section-box">
+    <h2>About Us</h2>
+    <p>
+      SDJ Productions is a professional Roblox production company focused on
+      high-quality assets, systems, UI, and development services.
+    </p>
+  </div>
+</div>
 
-<!-- RULES -->
-<section id="rules">
-  <h2>Rules</h2>
-  <ul>
-    <li>All assets are licensed, not owned.</li>
-    <li>No reselling, sharing, leaking, or redistribution.</li>
-    <li>Assets may only be used in your own Roblox projects.</li>
-    <li>Chargebacks, fraud, or scams result in permanent blacklist.</li>
-    <li>Harassment, abuse, or threats toward staff are not tolerated.</li>
-    <li>Attempting to crack or bypass protections is prohibited.</li>
-  </ul>
-</section>
-
-<!-- TIERS -->
-<section id="tiers">
-  <h2>Warning Tiers</h2>
-  <ul class="tiers">
-    <li class="tier tier-1">Tier 1 — Warning</li>
-    <li class="tier tier-2">Tier 2 — Timeout / Mute</li>
-    <li class="tier tier-3">Tier 3 — Kick / Temporary Ban</li>
-    <li class="tier tier-4">Tier 4 — Permanent Ban & Blacklist</li>
-  </ul>
-</section>
-
-<!-- ROADMAP -->
-<section id="roadmap">
-  <h2>Development Road</h2>
-  <ul>
-    <li>Expand asset catalog</li>
-    <li>Introduce premium systems</li>
-    <li>Improve security & licensing</li>
-    <li>Grow partner & client base</li>
-  </ul>
-</section>
-
-<!-- STAFF GUIDE -->
-<section id="staff" class="locked">
-  <div class="content">
-    <h2>Staff Guide</h2>
+<div id="rules" class="section">
+  <div class="section-box">
+    <h2>Rules</h2>
     <ul>
-      <li>Maintain professionalism</li>
-      <li>Log all actions</li>
-      <li>Follow staff hierarchy</li>
+      <li>Assets are licensed, not owned.</li>
+      <li>No reselling, redistribution, or leaks.</li>
+      <li>Use assets only in your own projects.</li>
+      <li>Chargebacks result in permanent blacklist.</li>
+      <li>Cracking or bypassing protections is prohibited.</li>
     </ul>
   </div>
-  <div class="lock-overlay">
-    <div class="lock-box">
-      <h3>🔒 Staff Only</h3>
-      <p>Restricted SDJ Productions documentation.</p>
-    </div>
-  </div>
-</section>
+</div>
 
-<!-- MODERATION GUIDE -->
-<section id="moderation" class="locked">
-  <div class="content">
-    <h2>Moderation Guide</h2>
-    <ul>
-      <li>Collect evidence</li>
-      <li>Apply correct punishment tier</li>
-      <li>Remain unbiased</li>
+<div id="tiers" class="section">
+  <div class="section-box">
+    <h2>Warning Tiers</h2>
+    <ul class="tiers">
+      <li class="tier tier-1">Tier 1 — Warning</li>
+      <li class="tier tier-2">Tier 2 — Timeout / Mute</li>
+      <li class="tier tier-3">Tier 3 — Kick / Temporary Ban</li>
+      <li class="tier tier-4">Tier 4 — Permanent Ban & Blacklist</li>
     </ul>
   </div>
-  <div class="lock-overlay">
-    <div class="lock-box">
-      <h3>🔒 Moderators Only</h3>
-      <p>Unauthorized access is prohibited.</p>
-    </div>
-  </div>
-</section>
+</div>
 
-<!-- EXECUTIVE GUIDE -->
-<section id="executive" class="locked">
-  <div class="content">
-    <h2>Executive Guide</h2>
+<div id="roadmap" class="section">
+  <div class="section-box">
+    <h2>Development Road</h2>
     <ul>
-      <li>Final authority decisions</li>
-      <li>Legal & IP protection</li>
-      <li>Staff management</li>
+      <li>Expand asset catalog</li>
+      <li>Premium systems</li>
+      <li>Security & licensing improvements</li>
+      <li>Company growth</li>
     </ul>
   </div>
-  <div class="lock-overlay">
-    <div class="lock-box">
-      <h3>🔐 Executive Only</h3>
-      <p>Confidential leadership material.</p>
+</div>
+
+<div id="staff" class="section">
+  <div class="section-box locked">
+    <div class="blur">
+      <h2>Staff Guide</h2>
+      <ul>
+        <li>Professional conduct</li>
+        <li>Log all actions</li>
+        <li>Follow hierarchy</li>
+      </ul>
+    </div>
+    <div class="lock-overlay">
+      <div>
+        <h3>🔒 Staff Only</h3>
+        <p>Restricted SDJ Productions documentation.</p>
+      </div>
     </div>
   </div>
-</section>
+</div>
+
+<div id="moderation" class="section">
+  <div class="section-box locked">
+    <div class="blur">
+      <h2>Moderation Guide</h2>
+      <ul>
+        <li>Collect evidence</li>
+        <li>Apply correct tier</li>
+        <li>Remain unbiased</li>
+      </ul>
+    </div>
+    <div class="lock-overlay">
+      <div>
+        <h3>🔒 Moderators Only</h3>
+        <p>Unauthorized access prohibited.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="executive" class="section">
+  <div class="section-box locked">
+    <div class="blur">
+      <h2>Executive Guide</h2>
+      <ul>
+        <li>Final authority</li>
+        <li>Legal & IP protection</li>
+        <li>Staff management</li>
+      </ul>
+    </div>
+    <div class="lock-overlay">
+      <div>
+        <h3>🔐 Executive Only</h3>
+        <p>Confidential leadership documentation.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer>
   © 2025 SDJ Productions — All Rights Reserved
 </footer>
 
 </main>
+
+<script>
+const buttons = document.querySelectorAll(".nav");
+const sections = document.querySelectorAll(".section");
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    buttons.forEach(b => b.classList.remove("active"));
+    sections.forEach(s => s.classList.remove("active"));
+
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.target).classList.add("active");
+  });
+});
+</script>
+
 </body>
 </html>
