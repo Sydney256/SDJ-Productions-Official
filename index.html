@@ -2,32 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>SDJ Productions — Studio Policies</title>
+<title>SDJ Productions — Studio Portal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg: #070b17;
-  --glass: rgba(255,255,255,0.06);
-  --glass-border: rgba(255,255,255,0.12);
-  --accent: #4f8cff;
-  --accent-soft: rgba(79,140,255,0.25);
-  --text: #e6eaff;
-  --muted: #9aa4c7;
+  --bg: #060a16;
+  --glass: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.14);
+  --accent: #5fa2ff;
+  --accent-soft: rgba(95,162,255,0.22);
+  --text: #edf1ff;
+  --muted: #9aa6d6;
   --danger: #ef4444;
-  --radius: 18px;
+  --radius: 20px;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: Inter, system-ui, sans-serif;
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(79,140,255,0.12), transparent),
-    radial-gradient(800px 400px at 90% 10%, rgba(239,68,68,0.08), transparent),
+    radial-gradient(900px 500px at 15% -10%, rgba(95,162,255,0.18), transparent),
+    radial-gradient(700px 400px at 85% 15%, rgba(239,68,68,0.12), transparent),
     var(--bg);
   color: var(--text);
   height: 100vh;
@@ -35,98 +35,126 @@ body {
   overflow: hidden;
 }
 
+/* ===== CURSOR GLOW ===== */
+.cursor-glow {
+  position: fixed;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(95,162,255,0.18), transparent 60%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
 /* ===== SIDEBAR ===== */
 .sidebar {
-  width: 280px;
-  padding: 36px 26px;
+  width: 300px;
+  padding: 42px 28px;
+  backdrop-filter: blur(18px);
   background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
-  border-right: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px);
+  border-right: 1px solid var(--border);
+  z-index: 1;
 }
 
 .brand {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  margin-bottom: 36px;
   color: var(--accent);
 }
 
 .nav-btn {
   width: 100%;
-  background: transparent;
   border: none;
+  background: transparent;
   color: var(--text);
-  text-align: left;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  border-radius: 16px;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s ease;
+  position: relative;
+  transition: all 0.25s cubic-bezier(.2,.8,.2,1);
+}
+
+.nav-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(90deg, var(--accent-soft), transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 .nav-btn:hover {
-  background: var(--glass);
+  transform: translateY(-2px);
+}
+
+.nav-btn:hover::after {
+  opacity: 1;
 }
 
 .nav-btn.active {
-  background: linear-gradient(90deg, var(--accent-soft), transparent);
-  box-shadow: inset 0 0 0 1px rgba(79,140,255,0.35);
+  box-shadow: inset 0 0 0 1px rgba(95,162,255,0.45);
+}
+
+.nav-btn.active::after {
+  opacity: 1;
 }
 
 /* ===== CONTENT ===== */
 main {
   flex: 1;
-  padding: 50px;
-  overflow: hidden;
+  padding: 60px;
+  position: relative;
+  z-index: 1;
 }
 
 .section {
   display: none;
-  animation: fadeIn 0.3s ease;
+  animation: sectionIn 0.45s cubic-bezier(.2,.8,.2,1);
 }
 
 .section.active {
   display: block;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes sectionIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .panel {
   background: linear-gradient(180deg, var(--glass), transparent);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 40px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 40px 120px rgba(0,0,0,0.45);
+  padding: 48px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 60px 140px rgba(0,0,0,0.55);
 }
 
 .panel h2 {
   margin-top: 0;
-  font-size: 30px;
-  letter-spacing: -0.6px;
-}
-
-.panel h3 {
-  margin-top: 32px;
+  font-size: 34px;
+  letter-spacing: -0.7px;
 }
 
 .panel p {
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.75;
+  max-width: 900px;
 }
 
 .panel ul {
-  padding-left: 20px;
+  padding-left: 22px;
 }
 
 .panel li {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: var(--muted);
 }
 
@@ -134,16 +162,16 @@ main {
 .tiers {
   list-style: none;
   padding: 0;
-  margin-top: 24px;
+  margin-top: 30px;
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
 
 .tier {
-  padding: 18px 22px;
-  border-radius: 16px;
-  font-weight: 700;
-  font-size: 15px;
+  padding: 20px 24px;
+  border-radius: 18px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
 }
 
 .tier-1 { background: linear-gradient(90deg,#fef9c3,#fde68a); color:#1f2937; }
@@ -152,12 +180,12 @@ main {
 .tier-4 {
   background: linear-gradient(90deg,#f97316,#ef4444);
   color: white;
-  animation: pulse 2s infinite;
+  animation: dangerPulse 2.2s infinite;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7); }
-  70% { box-shadow: 0 0 0 18px rgba(239,68,68,0); }
+@keyframes dangerPulse {
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.65); }
+  70% { box-shadow: 0 0 0 22px rgba(239,68,68,0); }
   100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
 }
 
@@ -168,15 +196,15 @@ main {
 }
 
 .locked .blur {
-  filter: blur(12px);
+  filter: blur(14px);
   pointer-events: none;
 }
 
 .lock-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(7,11,23,0.88);
-  backdrop-filter: blur(8px);
+  background: rgba(6,10,22,0.9);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,16 +213,17 @@ main {
 
 .lock-overlay h3 {
   color: var(--danger);
-  margin-bottom: 10px;
+  animation: shimmer 2.5s infinite;
 }
 
-.lock-overlay p {
-  color: var(--muted);
+@keyframes shimmer {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
 }
 
-/* FOOTER */
 footer {
-  margin-top: 30px;
+  margin-top: 40px;
   color: var(--muted);
   font-size: 13px;
   text-align: center;
@@ -203,6 +232,8 @@ footer {
 </head>
 
 <body>
+
+<div class="cursor-glow" id="glow"></div>
 
 <!-- SIDEBAR -->
 <div class="sidebar">
@@ -219,47 +250,43 @@ footer {
 <!-- CONTENT -->
 <main>
 
-<!-- ABOUT -->
 <div id="about" class="section active">
   <div class="panel">
     <h2>About SDJ Productions</h2>
     <p>
-      <strong>SDJ Productions</strong> is a professional Roblox production studio
-      specializing in high-quality assets, systems, user interfaces, and secure
-      development solutions.
+      <strong>SDJ Productions</strong> is a premium Roblox development studio focused on
+      high-quality assets, systems, and secure production workflows.
     </p>
     <p>
-      We focus on originality, performance, and long-term usability. Every product
-      is designed with scalability, security, and professionalism in mind.
+      We operate with professional standards, strict licensing, and long-term
+      sustainability in mind. Our work is designed to scale, remain secure, and
+      maintain quality over time.
     </p>
 
     <h3>Why Choose SDJ Productions?</h3>
     <ul>
-      <li><strong>Industry-Grade Standards</strong> — Structured workflows and policies.</li>
-      <li><strong>Secure & Original Assets</strong> — No recycled or stolen content.</li>
-      <li><strong>Clear Licensing</strong> — Transparent and enforceable rules.</li>
-      <li><strong>Quality-Driven</strong> — Optimization over shortcuts.</li>
-      <li><strong>Long-Term Vision</strong> — Built for growth, not quick sales.</li>
+      <li>Enterprise-grade production standards</li>
+      <li>Original, protected assets</li>
+      <li>Clear and enforceable licensing</li>
+      <li>Professional staff oversight</li>
+      <li>Long-term development vision</li>
     </ul>
   </div>
 </div>
 
-<!-- RULES -->
 <div id="rules" class="section">
   <div class="panel">
     <h2>Rules</h2>
     <ul>
-      <li>All assets are licensed, not owned.</li>
-      <li>No reselling, redistribution, or leaking.</li>
-      <li>Assets may only be used in your own Roblox projects.</li>
-      <li>Chargebacks or fraud result in permanent blacklist.</li>
+      <li>Assets are licensed, not owned.</li>
+      <li>No reselling, sharing, or redistribution.</li>
+      <li>Use assets only in your own projects.</li>
+      <li>Chargebacks result in permanent blacklist.</li>
       <li>Cracking or bypassing protections is prohibited.</li>
-      <li>Harassment or abuse toward staff is not tolerated.</li>
     </ul>
   </div>
 </div>
 
-<!-- TIERS -->
 <div id="tiers" class="section">
   <div class="panel">
     <h2>Warning Tiers</h2>
@@ -272,62 +299,36 @@ footer {
   </div>
 </div>
 
-<!-- ROADMAP -->
 <div id="roadmap" class="section">
   <div class="panel">
     <h2>Development Road</h2>
     <ul>
-      <li>Expand premium asset catalog</li>
+      <li>Premium asset expansion</li>
       <li>Advanced systems & frameworks</li>
-      <li>Improved licensing & security</li>
-      <li>Studio partnerships & scaling</li>
+      <li>Improved security & licensing</li>
+      <li>Studio growth & partnerships</li>
     </ul>
   </div>
 </div>
 
-<!-- STAFF -->
 <div id="staff" class="section">
   <div class="panel locked">
-    <div class="blur">
-      <h2>Staff Guide</h2>
-      <ul><li>Internal policies</li></ul>
-    </div>
-    <div class="lock-overlay">
-      <div>
-        <h3>🔒 Staff Only</h3>
-        <p>Restricted internal documentation.</p>
-      </div>
-    </div>
+    <div class="blur"><h2>Staff Guide</h2></div>
+    <div class="lock-overlay"><div><h3>🔒 Staff Only</h3></div></div>
   </div>
 </div>
 
-<!-- MODERATION -->
 <div id="moderation" class="section">
   <div class="panel locked">
-    <div class="blur">
-      <h2>Moderation Guide</h2>
-    </div>
-    <div class="lock-overlay">
-      <div>
-        <h3>🔒 Moderators Only</h3>
-        <p>Unauthorized access prohibited.</p>
-      </div>
-    </div>
+    <div class="blur"><h2>Moderation Guide</h2></div>
+    <div class="lock-overlay"><div><h3>🔒 Moderators Only</h3></div></div>
   </div>
 </div>
 
-<!-- EXECUTIVE -->
 <div id="executive" class="section">
   <div class="panel locked">
-    <div class="blur">
-      <h2>Executive Guide</h2>
-    </div>
-    <div class="lock-overlay">
-      <div>
-        <h3>🔐 Executive Only</h3>
-        <p>Confidential leadership material.</p>
-      </div>
-    </div>
+    <div class="blur"><h2>Executive Guide</h2></div>
+    <div class="lock-overlay"><div><h3>🔐 Executive Only</h3></div></div>
   </div>
 </div>
 
@@ -338,17 +339,33 @@ footer {
 </main>
 
 <script>
+/* NAVIGATION */
 const buttons = document.querySelectorAll(".nav-btn");
 const sections = document.querySelectorAll(".section");
 
 buttons.forEach(btn => {
   btn.addEventListener("click", () => {
+    localStorage.setItem("sdj-section", btn.dataset.target);
+
     buttons.forEach(b => b.classList.remove("active"));
     sections.forEach(s => s.classList.remove("active"));
 
     btn.classList.add("active");
     document.getElementById(btn.dataset.target).classList.add("active");
   });
+});
+
+/* RESTORE LAST TAB */
+const last = localStorage.getItem("sdj-section");
+if (last) {
+  document.querySelector(`[data-target="${last}"]`)?.click();
+}
+
+/* CURSOR GLOW */
+const glow = document.getElementById("glow");
+window.addEventListener("mousemove", e => {
+  glow.style.left = e.clientX + "px";
+  glow.style.top = e.clientY + "px";
 });
 </script>
 
