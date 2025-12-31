@@ -25,42 +25,71 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background:
-    radial-gradient(900px 500px at 15% -10%, rgba(95,162,255,0.18), transparent),
-    radial-gradient(700px 400px at 85% 15%, rgba(239,68,68,0.12), transparent),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   height: 100vh;
   display: flex;
   overflow: hidden;
 }
 
-/* ===== CURSOR GLOW ===== */
-.cursor-glow {
+/* ================= AMBIENT BACKGROUND ================= */
+.ambient {
   position: fixed;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(circle, rgba(95,162,255,0.18), transparent 60%);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  transition: opacity 0.3s ease;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
 }
 
-/* ===== SIDEBAR ===== */
+.orb {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.45;
+  animation: float 30s infinite ease-in-out;
+}
+
+.orb.blue {
+  background: #5fa2ff;
+  top: -20%;
+  left: -10%;
+  animation-duration: 36s;
+}
+
+.orb.red {
+  background: #ef4444;
+  bottom: -25%;
+  right: -15%;
+  animation-duration: 42s;
+}
+
+.orb.purple {
+  background: #8b5cf6;
+  top: 30%;
+  right: 20%;
+  animation-duration: 48s;
+}
+
+@keyframes float {
+  0%   { transform: translate(0,0) scale(1); }
+  50%  { transform: translate(60px,-40px) scale(1.1); }
+  100% { transform: translate(0,0) scale(1); }
+}
+
+/* ================= SIDEBAR ================= */
 .sidebar {
   width: 300px;
   padding: 42px 28px;
   backdrop-filter: blur(18px);
   background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
   border-right: 1px solid var(--border);
-  z-index: 1;
+  z-index: 2;
 }
 
 .brand {
   font-size: 26px;
   font-weight: 900;
-  letter-spacing: -0.6px;
   margin-bottom: 36px;
   color: var(--accent);
 }
@@ -76,55 +105,37 @@ body {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  position: relative;
   transition: all 0.25s cubic-bezier(.2,.8,.2,1);
-}
-
-.nav-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  background: linear-gradient(90deg, var(--accent-soft), transparent);
-  opacity: 0;
-  transition: opacity 0.25s ease;
 }
 
 .nav-btn:hover {
   transform: translateY(-2px);
-}
-
-.nav-btn:hover::after {
-  opacity: 1;
+  background: var(--glass);
 }
 
 .nav-btn.active {
   box-shadow: inset 0 0 0 1px rgba(95,162,255,0.45);
+  background: linear-gradient(90deg, var(--accent-soft), transparent);
 }
 
-.nav-btn.active::after {
-  opacity: 1;
-}
-
-/* ===== CONTENT ===== */
+/* ================= CONTENT ================= */
 main {
   flex: 1;
   padding: 60px;
-  position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .section {
   display: none;
-  animation: sectionIn 0.45s cubic-bezier(.2,.8,.2,1);
+  animation: fadeIn 0.5s cubic-bezier(.2,.8,.2,1);
 }
 
 .section.active {
   display: block;
 }
 
-@keyframes sectionIn {
-  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
@@ -140,25 +151,14 @@ main {
 .panel h2 {
   margin-top: 0;
   font-size: 34px;
-  letter-spacing: -0.7px;
 }
 
-.panel p {
+.panel p, .panel li {
   color: var(--muted);
   line-height: 1.75;
-  max-width: 900px;
 }
 
-.panel ul {
-  padding-left: 22px;
-}
-
-.panel li {
-  margin-bottom: 12px;
-  color: var(--muted);
-}
-
-/* ===== TIERS ===== */
+/* ================= TIERS ================= */
 .tiers {
   list-style: none;
   padding: 0;
@@ -171,7 +171,6 @@ main {
   padding: 20px 24px;
   border-radius: 18px;
   font-weight: 800;
-  letter-spacing: 0.3px;
 }
 
 .tier-1 { background: linear-gradient(90deg,#fef9c3,#fde68a); color:#1f2937; }
@@ -180,25 +179,18 @@ main {
 .tier-4 {
   background: linear-gradient(90deg,#f97316,#ef4444);
   color: white;
-  animation: dangerPulse 2.2s infinite;
+  animation: pulse 2.4s infinite;
 }
 
-@keyframes dangerPulse {
-  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.65); }
-  70% { box-shadow: 0 0 0 22px rgba(239,68,68,0); }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
+  70% { box-shadow: 0 0 0 24px rgba(239,68,68,0); }
   100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
 }
 
-/* ===== LOCKED ===== */
-.locked {
-  position: relative;
-  overflow: hidden;
-}
-
-.locked .blur {
-  filter: blur(14px);
-  pointer-events: none;
-}
+/* ================= LOCKED ================= */
+.locked { position: relative; overflow: hidden; }
+.locked .blur { filter: blur(14px); pointer-events: none; }
 
 .lock-overlay {
   position: absolute;
@@ -208,7 +200,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 
 .lock-overlay h3 {
@@ -217,9 +208,8 @@ main {
 }
 
 @keyframes shimmer {
-  0% { opacity: 0.8; }
+  0%,100% { opacity: 0.7; }
   50% { opacity: 1; }
-  100% { opacity: 0.8; }
 }
 
 footer {
@@ -233,7 +223,12 @@ footer {
 
 <body>
 
-<div class="cursor-glow" id="glow"></div>
+<!-- AMBIENT BACKGROUND -->
+<div class="ambient">
+  <div class="orb blue"></div>
+  <div class="orb red"></div>
+  <div class="orb purple"></div>
+</div>
 
 <!-- SIDEBAR -->
 <div class="sidebar">
@@ -254,23 +249,13 @@ footer {
   <div class="panel">
     <h2>About SDJ Productions</h2>
     <p>
-      <strong>SDJ Productions</strong> is a premium Roblox development studio focused on
+      <strong>SDJ Productions</strong> is a premium Roblox development studio delivering
       high-quality assets, systems, and secure production workflows.
     </p>
     <p>
-      We operate with professional standards, strict licensing, and long-term
-      sustainability in mind. Our work is designed to scale, remain secure, and
-      maintain quality over time.
+      We focus on originality, performance, and long-term sustainability — ensuring
+      every product meets professional studio standards.
     </p>
-
-    <h3>Why Choose SDJ Productions?</h3>
-    <ul>
-      <li>Enterprise-grade production standards</li>
-      <li>Original, protected assets</li>
-      <li>Clear and enforceable licensing</li>
-      <li>Professional staff oversight</li>
-      <li>Long-term development vision</li>
-    </ul>
   </div>
 </div>
 
@@ -278,11 +263,10 @@ footer {
   <div class="panel">
     <h2>Rules</h2>
     <ul>
-      <li>Assets are licensed, not owned.</li>
-      <li>No reselling, sharing, or redistribution.</li>
-      <li>Use assets only in your own projects.</li>
-      <li>Chargebacks result in permanent blacklist.</li>
-      <li>Cracking or bypassing protections is prohibited.</li>
+      <li>Assets are licensed, not owned</li>
+      <li>No reselling or redistribution</li>
+      <li>Chargebacks result in blacklist</li>
+      <li>Cracking protections is prohibited</li>
     </ul>
   </div>
 </div>
@@ -304,9 +288,9 @@ footer {
     <h2>Development Road</h2>
     <ul>
       <li>Premium asset expansion</li>
-      <li>Advanced systems & frameworks</li>
-      <li>Improved security & licensing</li>
-      <li>Studio growth & partnerships</li>
+      <li>Advanced systems</li>
+      <li>Improved security</li>
+      <li>Studio growth</li>
     </ul>
   </div>
 </div>
@@ -314,21 +298,21 @@ footer {
 <div id="staff" class="section">
   <div class="panel locked">
     <div class="blur"><h2>Staff Guide</h2></div>
-    <div class="lock-overlay"><div><h3>🔒 Staff Only</h3></div></div>
+    <div class="lock-overlay"><h3>🔒 Staff Only</h3></div>
   </div>
 </div>
 
 <div id="moderation" class="section">
   <div class="panel locked">
     <div class="blur"><h2>Moderation Guide</h2></div>
-    <div class="lock-overlay"><div><h3>🔒 Moderators Only</h3></div></div>
+    <div class="lock-overlay"><h3>🔒 Moderators Only</h3></div>
   </div>
 </div>
 
 <div id="executive" class="section">
   <div class="panel locked">
     <div class="blur"><h2>Executive Guide</h2></div>
-    <div class="lock-overlay"><div><h3>🔐 Executive Only</h3></div></div>
+    <div class="lock-overlay"><h3>🔐 Executive Only</h3></div>
   </div>
 </div>
 
@@ -357,16 +341,7 @@ buttons.forEach(btn => {
 
 /* RESTORE LAST TAB */
 const last = localStorage.getItem("sdj-section");
-if (last) {
-  document.querySelector(`[data-target="${last}"]`)?.click();
-}
-
-/* CURSOR GLOW */
-const glow = document.getElementById("glow");
-window.addEventListener("mousemove", e => {
-  glow.style.left = e.clientX + "px";
-  glow.style.top = e.clientY + "px";
-});
+if (last) document.querySelector(`[data-target="${last}"]`)?.click();
 </script>
 
 </body>
