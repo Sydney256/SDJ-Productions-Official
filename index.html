@@ -6,231 +6,262 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
 
 :root {
-  --bg: #060a16;
-  --glass: rgba(255,255,255,0.07);
-  --border: rgba(255,255,255,0.14);
-  --accent: #5fa2ff;
-  --accent-soft: rgba(95,162,255,0.22);
-  --text: #edf1ff;
-  --muted: #9aa6d6;
-  --danger: #ef4444;
-  --radius: 20px;
+  --bg:#060a16;
+  --glass:rgba(255,255,255,.07);
+  --border:rgba(255,255,255,.14);
+  --accent:#5fa2ff;
+  --accent-soft:rgba(95,162,255,.22);
+  --text:#edf1ff;
+  --muted:#9aa6d6;
+  --danger:#ef4444;
+  --radius:20px;
 }
 
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  font-family: Inter, system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  height: 100vh;
-  display: flex;
-  overflow: hidden;
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  height:100vh;
+  overflow:hidden;
+}
+
+/* ================= LOADING & INTRO ================= */
+.overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(800px 400px at 20% -10%,rgba(95,162,255,.25),transparent),
+    radial-gradient(600px 300px at 80% 20%,rgba(239,68,68,.18),transparent),
+    var(--bg);
+  z-index:9999;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+
+.overlay.hidden{
+  opacity:0;
+  visibility:hidden;
+}
+
+.center-box{
+  text-align:center;
+  max-width:600px;
+  padding:40px;
+}
+
+.center-box h1{
+  font-size:42px;
+  font-weight:900;
+  letter-spacing:-.8px;
+  margin-bottom:20px;
+}
+
+.loader{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,.15);
+  border-top-color:var(--accent);
+  animation:spin 1s linear infinite;
+  margin:0 auto;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.fade{
+  animation:fadeIn .6s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.continue-btn{
+  margin-top:30px;
+  padding:14px 30px;
+  border-radius:16px;
+  border:none;
+  background:linear-gradient(90deg,var(--accent),#8bb7ff);
+  color:#060a16;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  transition:all .25s ease;
+}
+
+.continue-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 20px 40px rgba(95,162,255,.35);
+}
+
+/* ================= MAIN APP ================= */
+.app{
+  opacity:0;
+  visibility:hidden;
+  height:100vh;
+  display:flex;
+  transition:opacity .6s ease;
+}
+
+.app.show{
+  opacity:1;
+  visibility:visible;
 }
 
 /* ================= AMBIENT BACKGROUND ================= */
-.ambient {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  overflow: hidden;
+.ambient{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
 }
-
-.orb {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  filter: blur(140px);
-  opacity: 0.45;
-  animation: float 30s infinite ease-in-out;
+.orb{
+  position:absolute;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+  filter:blur(140px);
+  opacity:.45;
+  animation:float 36s infinite ease-in-out;
 }
-
-.orb.blue {
-  background: #5fa2ff;
-  top: -20%;
-  left: -10%;
-  animation-duration: 36s;
-}
-
-.orb.red {
-  background: #ef4444;
-  bottom: -25%;
-  right: -15%;
-  animation-duration: 42s;
-}
-
-.orb.purple {
-  background: #8b5cf6;
-  top: 30%;
-  right: 20%;
-  animation-duration: 48s;
-}
-
-@keyframes float {
-  0%   { transform: translate(0,0) scale(1); }
-  50%  { transform: translate(60px,-40px) scale(1.1); }
-  100% { transform: translate(0,0) scale(1); }
+.orb.blue{background:#5fa2ff;top:-20%;left:-10%}
+.orb.red{background:#ef4444;bottom:-25%;right:-15%;animation-duration:42s}
+.orb.purple{background:#8b5cf6;top:30%;right:20%;animation-duration:48s}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(60px,-40px) scale(1.1)}
 }
 
 /* ================= SIDEBAR ================= */
-.sidebar {
-  width: 300px;
-  padding: 42px 28px;
-  backdrop-filter: blur(18px);
-  background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
-  border-right: 1px solid var(--border);
-  z-index: 2;
+.sidebar{
+  width:300px;
+  padding:42px 28px;
+  backdrop-filter:blur(18px);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);
+  border-right:1px solid var(--border);
 }
 
-.brand {
-  font-size: 26px;
-  font-weight: 900;
-  margin-bottom: 36px;
-  color: var(--accent);
+.brand{
+  font-size:26px;
+  font-weight:900;
+  color:var(--accent);
+  margin-bottom:36px;
 }
 
-.nav-btn {
-  width: 100%;
-  border: none;
-  background: transparent;
-  color: var(--text);
-  padding: 16px 18px;
-  margin-bottom: 12px;
-  border-radius: 16px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(.2,.8,.2,1);
+.nav-btn{
+  width:100%;
+  padding:16px 18px;
+  margin-bottom:12px;
+  background:transparent;
+  border:none;
+  color:var(--text);
+  text-align:left;
+  border-radius:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s cubic-bezier(.2,.8,.2,1);
 }
-
-.nav-btn:hover {
-  transform: translateY(-2px);
-  background: var(--glass);
-}
-
-.nav-btn.active {
-  box-shadow: inset 0 0 0 1px rgba(95,162,255,0.45);
-  background: linear-gradient(90deg, var(--accent-soft), transparent);
+.nav-btn:hover{transform:translateY(-2px);background:var(--glass)}
+.nav-btn.active{
+  background:linear-gradient(90deg,var(--accent-soft),transparent);
+  box-shadow:inset 0 0 0 1px rgba(95,162,255,.45);
 }
 
 /* ================= CONTENT ================= */
-main {
-  flex: 1;
-  padding: 60px;
-  z-index: 2;
+main{
+  flex:1;
+  padding:60px;
+}
+.section{display:none;animation:fadeIn .45s cubic-bezier(.2,.8,.2,1)}
+.section.active{display:block}
+
+.panel{
+  background:linear-gradient(180deg,var(--glass),transparent);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:48px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 60px 140px rgba(0,0,0,.55);
 }
 
-.section {
-  display: none;
-  animation: fadeIn 0.5s cubic-bezier(.2,.8,.2,1);
-}
-
-.section.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(14px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.panel {
-  background: linear-gradient(180deg, var(--glass), transparent);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 48px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 60px 140px rgba(0,0,0,0.55);
-}
-
-.panel h2 {
-  margin-top: 0;
-  font-size: 34px;
-}
-
-.panel p, .panel li {
-  color: var(--muted);
-  line-height: 1.75;
-}
+.panel h2{margin-top:0;font-size:34px}
+.panel p,.panel li{color:var(--muted);line-height:1.75}
 
 /* ================= TIERS ================= */
-.tiers {
-  list-style: none;
-  padding: 0;
-  margin-top: 30px;
-  display: grid;
-  gap: 16px;
+.tiers{list-style:none;padding:0;margin-top:30px;display:grid;gap:16px}
+.tier{padding:20px 24px;border-radius:18px;font-weight:800}
+.tier-1{background:linear-gradient(90deg,#fef9c3,#fde68a);color:#1f2937}
+.tier-2{background:linear-gradient(90deg,#fde68a,#fbbf24);color:#1f2937}
+.tier-3{background:linear-gradient(90deg,#fbbf24,#f97316);color:#1f1300}
+.tier-4{
+  background:linear-gradient(90deg,#f97316,#ef4444);
+  color:white;
+  animation:pulse 2.4s infinite;
 }
-
-.tier {
-  padding: 20px 24px;
-  border-radius: 18px;
-  font-weight: 800;
-}
-
-.tier-1 { background: linear-gradient(90deg,#fef9c3,#fde68a); color:#1f2937; }
-.tier-2 { background: linear-gradient(90deg,#fde68a,#fbbf24); color:#1f2937; }
-.tier-3 { background: linear-gradient(90deg,#fbbf24,#f97316); color:#1f1300; }
-.tier-4 {
-  background: linear-gradient(90deg,#f97316,#ef4444);
-  color: white;
-  animation: pulse 2.4s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
-  70% { box-shadow: 0 0 0 24px rgba(239,68,68,0); }
-  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(239,68,68,.6)}
+  70%{box-shadow:0 0 0 24px rgba(239,68,68,0)}
+  100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}
 }
 
 /* ================= LOCKED ================= */
-.locked { position: relative; overflow: hidden; }
-.locked .blur { filter: blur(14px); pointer-events: none; }
-
-.lock-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(6,10,22,0.9);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.lock-overlay h3 {
-  color: var(--danger);
-  animation: shimmer 2.5s infinite;
-}
-
-@keyframes shimmer {
-  0%,100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-footer {
-  margin-top: 40px;
-  color: var(--muted);
-  font-size: 13px;
-  text-align: center;
+.locked{position:relative;overflow:hidden}
+.locked .blur{filter:blur(14px)}
+.lock-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(6,10,22,.9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--danger);
+  font-weight:700;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AMBIENT BACKGROUND -->
+<!-- LOADING / INTRO -->
+<div class="overlay" id="overlay">
+  <div class="center-box" id="stage1">
+    <h1>SDJ Productions</h1>
+    <div class="loader"></div>
+  </div>
+
+  <div class="center-box" id="stage2" style="display:none">
+    <h1 class="fade">🎄 We Wish You a Merry Christmas</h1>
+    <p class="fade">
+      On behalf of everyone at <strong>SDJ Productions</strong>, we would like to
+      wish you a joyful, peaceful, and memorable Christmas. May this season bring
+      creativity, success, and happiness into your projects and beyond.
+    </p>
+    <p class="fade">
+      Thank you for being part of our journey. We look forward to creating more
+      amazing things together in the year ahead.
+    </p>
+    <button class="continue-btn fade" onclick="enterSite()">Continue</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+
 <div class="ambient">
   <div class="orb blue"></div>
   <div class="orb red"></div>
   <div class="orb purple"></div>
 </div>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
   <div class="brand">SDJ Productions</div>
   <button class="nav-btn active" data-target="about">About Us</button>
@@ -238,110 +269,75 @@ footer {
   <button class="nav-btn" data-target="tiers">Warning Tiers</button>
   <button class="nav-btn" data-target="roadmap">Development Road</button>
   <button class="nav-btn" data-target="staff">Staff Guide</button>
-  <button class="nav-btn" data-target="moderation">Moderation Guide</button>
-  <button class="nav-btn" data-target="executive">Executive Guide</button>
 </div>
 
-<!-- CONTENT -->
 <main>
-
-<div id="about" class="section active">
-  <div class="panel">
-    <h2>About SDJ Productions</h2>
-    <p>
-      <strong>SDJ Productions</strong> is a premium Roblox development studio delivering
-      high-quality assets, systems, and secure production workflows.
-    </p>
-    <p>
-      We focus on originality, performance, and long-term sustainability — ensuring
-      every product meets professional studio standards.
-    </p>
+  <div id="about" class="section active">
+    <div class="panel">
+      <h2>About SDJ Productions</h2>
+      <p>Premium Roblox development studio delivering secure, professional assets.</p>
+    </div>
   </div>
-</div>
 
-<div id="rules" class="section">
-  <div class="panel">
-    <h2>Rules</h2>
-    <ul>
-      <li>Assets are licensed, not owned</li>
-      <li>No reselling or redistribution</li>
-      <li>Chargebacks result in blacklist</li>
-      <li>Cracking protections is prohibited</li>
-    </ul>
+  <div id="rules" class="section">
+    <div class="panel">
+      <h2>Rules</h2>
+      <ul><li>No reselling</li><li>Licensed use only</li></ul>
+    </div>
   </div>
-</div>
 
-<div id="tiers" class="section">
-  <div class="panel">
-    <h2>Warning Tiers</h2>
-    <ul class="tiers">
-      <li class="tier tier-1">Tier 1 — Warning</li>
-      <li class="tier tier-2">Tier 2 — Timeout / Mute</li>
-      <li class="tier tier-3">Tier 3 — Kick / Temporary Ban</li>
-      <li class="tier tier-4">Tier 4 — Permanent Ban & Blacklist</li>
-    </ul>
+  <div id="tiers" class="section">
+    <div class="panel">
+      <h2>Warning Tiers</h2>
+      <ul class="tiers">
+        <li class="tier tier-1">Tier 1 — Warning</li>
+        <li class="tier tier-2">Tier 2 — Timeout</li>
+        <li class="tier tier-3">Tier 3 — Ban</li>
+        <li class="tier tier-4">Tier 4 — Blacklist</li>
+      </ul>
+    </div>
   </div>
-</div>
 
-<div id="roadmap" class="section">
-  <div class="panel">
-    <h2>Development Road</h2>
-    <ul>
-      <li>Premium asset expansion</li>
-      <li>Advanced systems</li>
-      <li>Improved security</li>
-      <li>Studio growth</li>
-    </ul>
+  <div id="roadmap" class="section">
+    <div class="panel">
+      <h2>Development Road</h2>
+      <ul><li>Premium assets</li><li>Advanced systems</li></ul>
+    </div>
   </div>
-</div>
 
-<div id="staff" class="section">
-  <div class="panel locked">
-    <div class="blur"><h2>Staff Guide</h2></div>
-    <div class="lock-overlay"><h3>🔒 Staff Only</h3></div>
+  <div id="staff" class="section">
+    <div class="panel locked">
+      <div class="blur"><h2>Staff Guide</h2></div>
+      <div class="lock-overlay">🔒 Staff Only</div>
+    </div>
   </div>
-</div>
-
-<div id="moderation" class="section">
-  <div class="panel locked">
-    <div class="blur"><h2>Moderation Guide</h2></div>
-    <div class="lock-overlay"><h3>🔒 Moderators Only</h3></div>
-  </div>
-</div>
-
-<div id="executive" class="section">
-  <div class="panel locked">
-    <div class="blur"><h2>Executive Guide</h2></div>
-    <div class="lock-overlay"><h3>🔐 Executive Only</h3></div>
-  </div>
-</div>
-
-<footer>
-  © 2025 SDJ Productions — All Rights Reserved
-</footer>
-
 </main>
 
+</div>
+
 <script>
-/* NAVIGATION */
-const buttons = document.querySelectorAll(".nav-btn");
-const sections = document.querySelectorAll(".section");
+/* LOADING FLOW */
+setTimeout(()=>{
+  document.getElementById("stage1").style.display="none";
+  document.getElementById("stage2").style.display="block";
+},1800);
 
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    localStorage.setItem("sdj-section", btn.dataset.target);
+function enterSite(){
+  document.getElementById("overlay").classList.add("hidden");
+  document.getElementById("app").classList.add("show");
+}
 
-    buttons.forEach(b => b.classList.remove("active"));
-    sections.forEach(s => s.classList.remove("active"));
-
+/* NAV */
+const buttons=document.querySelectorAll(".nav-btn");
+const sections=document.querySelectorAll(".section");
+buttons.forEach(btn=>{
+  btn.onclick=()=>{
+    buttons.forEach(b=>b.classList.remove("active"));
+    sections.forEach(s=>s.classList.remove("active"));
     btn.classList.add("active");
     document.getElementById(btn.dataset.target).classList.add("active");
-  });
+  };
 });
-
-/* RESTORE LAST TAB */
-const last = localStorage.getItem("sdj-section");
-if (last) document.querySelector(`[data-target="${last}"]`)?.click();
 </script>
 
 </body>
