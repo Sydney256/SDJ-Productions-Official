@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>SDJ Productions — Policies</title>
+<title>SDJ Productions — Official Policies</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
 :root {
   --bg: #0b0f1a;
+  --panel: #12182a;
   --accent: #3b82f6;
   --text: #e5e7eb;
   --muted: #9ca3af;
@@ -20,41 +21,58 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(circle at top, #10172a, var(--bg));
+  background: var(--bg);
   color: var(--text);
+  display: flex;
 }
 
-/* HEADER */
-header {
-  padding: 60px 20px;
-  text-align: center;
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #0e1430, #0b0f1a);
+  padding: 30px 20px;
+  position: fixed;
+  height: 100vh;
+  border-right: 1px solid rgba(255,255,255,0.08);
 }
 
-header h1 {
-  font-size: clamp(32px, 5vw, 52px);
+.sidebar h2 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  color: var(--accent);
 }
 
-header p {
-  color: var(--muted);
-  max-width: 700px;
-  margin: auto;
+.sidebar a {
+  display: block;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: var(--text);
+  border-radius: 10px;
+  transition: 0.2s;
 }
 
-/* LAYOUT */
+.sidebar a:hover {
+  background: rgba(59,130,246,0.15);
+}
+
+/* ===== MAIN CONTENT ===== */
 main {
+  margin-left: 260px;
+  padding: 40px;
   max-width: 1100px;
-  margin: auto;
-  padding: 20px;
-  display: grid;
-  gap: 24px;
 }
 
 section {
-  position: relative;
+  margin-bottom: 60px;
+  padding: 30px;
   background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius);
-  padding: 24px;
+}
+
+h1 {
+  margin-top: 0;
 }
 
 h2 {
@@ -66,11 +84,10 @@ ul {
   padding-left: 20px;
 }
 
-/* ===== PUNISHMENT TIERS ===== */
+/* ===== TIERS ===== */
 .tiers {
   list-style: none;
   padding: 0;
-  margin: 0;
   display: grid;
   gap: 12px;
 }
@@ -79,45 +96,26 @@ ul {
   padding: 14px 18px;
   border-radius: 14px;
   font-weight: 700;
-  font-size: 15px;
-  color: #1f2937;
 }
 
-/* Tier color progression */
-.tier-1 {
-  background: linear-gradient(90deg, #fef9c3, #fde68a);
-}
-
-.tier-2 {
-  background: linear-gradient(90deg, #fde68a, #fbbf24);
-}
-
-.tier-3 {
-  background: linear-gradient(90deg, #fbbf24, #f97316);
-  color: #1f1300;
-}
-
+.tier-1 { background: linear-gradient(90deg,#fef9c3,#fde68a); color:#1f2937; }
+.tier-2 { background: linear-gradient(90deg,#fde68a,#fbbf24); color:#1f2937; }
+.tier-3 { background: linear-gradient(90deg,#fbbf24,#f97316); color:#1f1300; }
 .tier-4 {
-  background: linear-gradient(90deg, #f97316, #ef4444);
-  color: #ffffff;
+  background: linear-gradient(90deg,#f97316,#ef4444);
+  color:#fff;
   animation: pulse 2s infinite;
 }
 
-/* Tier 4 Pulse */
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(239,68,68,0.6);
-  }
-  70% {
-    box-shadow: 0 0 0 16px rgba(239,68,68,0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(239,68,68,0);
-  }
+  0% { box-shadow: 0 0 0 0 rgba(239,68,68,.6); }
+  70% { box-shadow: 0 0 0 16px rgba(239,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
 }
 
 /* ===== LOCKED SECTIONS ===== */
 .locked {
+  position: relative;
   overflow: hidden;
 }
 
@@ -130,58 +128,73 @@ ul {
 .lock-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(11,15,26,0.85);
-  backdrop-filter: blur(4px);
+  background: rgba(11,15,26,0.88);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius);
   text-align: center;
 }
 
 .lock-box h3 {
   color: var(--danger);
-  margin-bottom: 10px;
 }
 
 .lock-box p {
   color: var(--muted);
-  font-size: 15px;
 }
 
 /* FOOTER */
 footer {
-  text-align: center;
-  padding: 40px;
   color: var(--muted);
   font-size: 14px;
+  text-align: center;
+  margin-top: 40px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>SDJ Productions</h1>
-  <p>Official Rules, Punishment System, and Internal Moderation Policies</p>
-</header>
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <h2>SDJ Productions</h2>
+  <a href="#about">About Us</a>
+  <a href="#rules">Rules</a>
+  <a href="#tiers">Warning Tiers</a>
+  <a href="#roadmap">Development Road</a>
+  <a href="#staff">Staff Guide</a>
+  <a href="#moderation">Moderation Guide</a>
+  <a href="#executive">Executive Guide</a>
+</nav>
 
 <main>
 
-<!-- PUBLIC RULES -->
-<section>
-  <h2>📜 Public Rules & Terms</h2>
+<!-- ABOUT -->
+<section id="about">
+  <h2>About Us</h2>
+  <p>
+    SDJ Productions is a professional Roblox production company focused on
+    high-quality assets, systems, UI, and development services. We prioritize
+    originality, security, and professionalism in everything we produce.
+  </p>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <h2>Rules</h2>
   <ul>
-    <li>All members must remain respectful and professional.</li>
     <li>All assets are licensed, not owned.</li>
-    <li><strong>No reselling, sharing, or redistribution of assets.</strong></li>
-    <li>Chargebacks or fraud result in permanent blacklist.</li>
+    <li>No reselling, sharing, leaking, or redistribution.</li>
+    <li>Assets may only be used in your own Roblox projects.</li>
+    <li>Chargebacks, fraud, or scams result in permanent blacklist.</li>
+    <li>Harassment, abuse, or threats toward staff are not tolerated.</li>
+    <li>Attempting to crack or bypass protections is prohibited.</li>
   </ul>
 </section>
 
-<!-- PUNISHMENT TIERS -->
-<section>
-  <h2>⚖️ Punishment Tiers</h2>
+<!-- TIERS -->
+<section id="tiers">
+  <h2>Warning Tiers</h2>
   <ul class="tiers">
     <li class="tier tier-1">Tier 1 — Warning</li>
     <li class="tier tier-2">Tier 2 — Timeout / Mute</li>
@@ -190,49 +203,75 @@ footer {
   </ul>
 </section>
 
-<!-- STAFF MOD GUIDE -->
-<section class="locked">
+<!-- ROADMAP -->
+<section id="roadmap">
+  <h2>Development Road</h2>
+  <ul>
+    <li>Expand asset catalog</li>
+    <li>Introduce premium systems</li>
+    <li>Improve security & licensing</li>
+    <li>Grow partner & client base</li>
+  </ul>
+</section>
+
+<!-- STAFF GUIDE -->
+<section id="staff" class="locked">
   <div class="content">
-    <h2>🔒 Staff Moderation Guide</h2>
+    <h2>Staff Guide</h2>
     <ul>
-      <li>Follow standard moderation flow</li>
-      <li>Collect evidence</li>
+      <li>Maintain professionalism</li>
       <li>Log all actions</li>
+      <li>Follow staff hierarchy</li>
     </ul>
   </div>
-
   <div class="lock-overlay">
     <div class="lock-box">
       <h3>🔒 Staff Only</h3>
-      <p>This section is restricted to SDJ Productions staff.</p>
+      <p>Restricted SDJ Productions documentation.</p>
     </div>
   </div>
 </section>
 
-<!-- SENIOR STAFF GUIDE -->
-<section class="locked">
+<!-- MODERATION GUIDE -->
+<section id="moderation" class="locked">
   <div class="content">
-    <h2>🔐 Senior Staff Guide</h2>
+    <h2>Moderation Guide</h2>
     <ul>
-      <li>Handle appeals and escalations</li>
-      <li>Override moderator decisions</li>
-      <li>Manage staff discipline</li>
+      <li>Collect evidence</li>
+      <li>Apply correct punishment tier</li>
+      <li>Remain unbiased</li>
     </ul>
   </div>
-
   <div class="lock-overlay">
     <div class="lock-box">
-      <h3>🔐 Senior Staff Only</h3>
-      <p>Confidential leadership documentation.</p>
+      <h3>🔒 Moderators Only</h3>
+      <p>Unauthorized access is prohibited.</p>
     </div>
   </div>
 </section>
 
-</main>
+<!-- EXECUTIVE GUIDE -->
+<section id="executive" class="locked">
+  <div class="content">
+    <h2>Executive Guide</h2>
+    <ul>
+      <li>Final authority decisions</li>
+      <li>Legal & IP protection</li>
+      <li>Staff management</li>
+    </ul>
+  </div>
+  <div class="lock-overlay">
+    <div class="lock-box">
+      <h3>🔐 Executive Only</h3>
+      <p>Confidential leadership material.</p>
+    </div>
+  </div>
+</section>
 
 <footer>
   © 2025 SDJ Productions — All Rights Reserved
 </footer>
 
+</main>
 </body>
 </html>
