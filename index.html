@@ -4,315 +4,160 @@
 <meta charset="UTF-8">
 <title>SDJ Productions — 2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
 <style>
-/* ================= GLOBAL ================= */
-:root{
-  --bg:#060a16;
-  --glass:rgba(255,255,255,.07);
-  --border:rgba(255,255,255,.14);
-  --accent:#5fa2ff;
-  --accent-soft:rgba(95,162,255,.22);
-  --text:#edf1ff;
-  --muted:#9aa6d6;
-  --danger:#ef4444;
-  --radius:20px;
-}
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Inter,system-ui,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  background:#060a16;
+  color:#edf1ff;
+  font-family:Arial,Helvetica,sans-serif;
   overflow:hidden;
 }
 
-/* ================= FIREWORK CANVAS ================= */
+/* CANVAS */
 canvas{
   position:fixed;
   inset:0;
-  z-index:10;
   pointer-events:none;
 }
 
-/* ================= INTRO OVERLAY ================= */
+/* INTRO */
 #intro{
   position:fixed;
   inset:0;
-  background:var(--bg);
-  z-index:20;
+  background:#060a16;
   display:flex;
   align-items:center;
   justify-content:center;
+  font-size:42px;
+  font-weight:700;
+  z-index:5;
   transition:opacity 1s ease;
 }
-#intro.hidden{opacity:0;pointer-events:none}
-#intro h1{
-  font-size:46px;
-  font-weight:900;
+#intro.hidden{
+  opacity:0;
+  pointer-events:none;
 }
 
-/* ================= APP ================= */
-#app{
-  display:flex;
-  height:100vh;
+/* SITE */
+#site{
   opacity:0;
   visibility:hidden;
   transition:opacity 1s ease;
 }
-#app.show{opacity:1;visibility:visible}
-
-/* ================= AMBIENT BACKGROUND ================= */
-.ambient{
-  position:fixed;
-  inset:0;
-  z-index:-1;
-}
-.orb{
-  position:absolute;
-  width:700px;
-  height:700px;
-  border-radius:50%;
-  filter:blur(140px);
-  opacity:.45;
-  animation:float 40s infinite ease-in-out;
-}
-.orb.blue{background:#5fa2ff;top:-20%;left:-10%}
-.orb.red{background:#ef4444;bottom:-25%;right:-15%}
-.orb.purple{background:#8b5cf6;top:30%;right:20%}
-@keyframes float{
-  50%{transform:translate(60px,-40px) scale(1.1)}
+#site.show{
+  opacity:1;
+  visibility:visible;
+  height:100vh;
 }
 
-/* ================= SIDEBAR ================= */
-.sidebar{
-  width:300px;
-  padding:42px 28px;
-  backdrop-filter:blur(18px);
-  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent);
-  border-right:1px solid var(--border);
-}
-.brand{
-  font-size:26px;
-  font-weight:900;
-  color:var(--accent);
-  margin-bottom:36px;
-}
-.nav-btn{
-  width:100%;
-  padding:16px 18px;
-  margin-bottom:12px;
-  background:none;
-  border:none;
-  color:var(--text);
-  text-align:left;
-  border-radius:16px;
-  font-weight:600;
-  cursor:pointer;
-  transition:.25s;
-}
-.nav-btn:hover{background:var(--glass);transform:translateY(-2px)}
-.nav-btn.active{
-  background:linear-gradient(90deg,var(--accent-soft),transparent);
-  box-shadow:inset 0 0 0 1px rgba(95,162,255,.45);
-}
-
-/* ================= CONTENT ================= */
-main{flex:1;padding:60px}
-.section{display:none;animation:fade .4s ease}
-.section.active{display:block}
-@keyframes fade{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1}
-}
-.panel{
-  background:linear-gradient(180deg,var(--glass),transparent);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:48px;
-  backdrop-filter:blur(20px);
-  box-shadow:0 60px 140px rgba(0,0,0,.55);
-}
-.panel h2{margin-top:0;font-size:34px}
-.panel p,.panel li{color:var(--muted);line-height:1.75}
-
-/* ================= TIERS ================= */
-.tiers{list-style:none;padding:0;display:grid;gap:16px}
-.tier{padding:20px 24px;border-radius:18px;font-weight:800}
-.tier-1{background:linear-gradient(90deg,#fef9c3,#fde68a);color:#1f2937}
-.tier-2{background:linear-gradient(90deg,#fde68a,#fbbf24);color:#1f2937}
-.tier-3{background:linear-gradient(90deg,#fbbf24,#f97316);color:#1f1300}
-.tier-4{
-  background:linear-gradient(90deg,#f97316,#ef4444);
-  color:white;
-  animation:pulse 2.4s infinite;
-}
-@keyframes pulse{
-  70%{box-shadow:0 0 0 24px rgba(239,68,68,0)}
-}
-
-/* ================= LOCKED ================= */
-.locked{position:relative}
-.locked .blur{filter:blur(14px)}
-.lock-overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(6,10,22,.9);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  color:var(--danger);
+/* SIMPLE SITE PLACEHOLDER */
+#site h1{
+  text-align:center;
+  margin-top:40vh;
+  font-size:48px;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="fireworks"></canvas>
+<canvas id="canvas"></canvas>
 
-<div id="intro">
-  <h1>🎆 SDJ Productions</h1>
-</div>
+<div id="intro">🎆 SDJ Productions</div>
 
-<div id="app">
-  <div class="ambient">
-    <div class="orb blue"></div>
-    <div class="orb red"></div>
-    <div class="orb purple"></div>
-  </div>
-
-  <div class="sidebar">
-    <div class="brand">SDJ Productions</div>
-    <button class="nav-btn active" data-target="about">About Us</button>
-    <button class="nav-btn" data-target="rules">Rules</button>
-    <button class="nav-btn" data-target="tiers">Warning Tiers</button>
-    <button class="nav-btn" data-target="staff">Staff Guide</button>
-    <button class="nav-btn" data-target="moderation">Moderation Guide</button>
-    <button class="nav-btn" data-target="executive">Executive Guide</button>
-  </div>
-
-  <main>
-    <div id="about" class="section active">
-      <div class="panel">
-        <h2>About SDJ Productions</h2>
-        <p>Premium Roblox production studio delivering secure, professional assets.</p>
-      </div>
-    </div>
-
-    <div id="rules" class="section">
-      <div class="panel">
-        <h2>Rules</h2>
-        <ul>
-          <li>No reselling or redistribution</li>
-          <li>Licensed use only</li>
-          <li>Chargebacks result in blacklist</li>
-        </ul>
-      </div>
-    </div>
-
-    <div id="tiers" class="section">
-      <div class="panel">
-        <h2>Warning Tiers</h2>
-        <ul class="tiers">
-          <li class="tier tier-1">Tier 1 — Warning</li>
-          <li class="tier tier-2">Tier 2 — Timeout</li>
-          <li class="tier tier-3">Tier 3 — Ban</li>
-          <li class="tier tier-4">Tier 4 — Blacklist</li>
-        </ul>
-      </div>
-    </div>
-
-    <div id="staff" class="section">
-      <div class="panel locked">
-        <div class="blur"><h2>Staff Guide</h2></div>
-        <div class="lock-overlay">🔒 Staff Only</div>
-      </div>
-    </div>
-
-    <div id="moderation" class="section">
-      <div class="panel locked">
-        <div class="blur"><h2>Moderation Guide</h2></div>
-        <div class="lock-overlay">🔒 Moderators Only</div>
-      </div>
-    </div>
-
-    <div id="executive" class="section">
-      <div class="panel locked">
-        <div class="blur"><h2>Executive Guide</h2></div>
-        <div class="lock-overlay">🔐 Executive Only</div>
-      </div>
-    </div>
-  </main>
+<div id="site">
+  <h1>Welcome to SDJ Productions</h1>
 </div>
 
 <script>
-/* ================= NAV ================= */
-document.querySelectorAll(".nav-btn").forEach(btn=>{
-  btn.onclick=()=>{
-    document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
-    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById(btn.dataset.target).classList.add("active");
-  };
-});
+/* ================= SETUP ================= */
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let w, h;
+function resize(){
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
 
-/* ================= FIREWORKS ================= */
-const canvas=document.getElementById("fireworks");
-const ctx=canvas.getContext("2d");
-let w,h,particles=[],start=performance.now();
-function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
-addEventListener("resize",resize);resize();
-
-class P{
-  constructor(x,y,vx,vy,c){this.x=x;this.y=y;this.vx=vx;this.vy=vy;this.l=90;this.c=c}
-  u(){this.vy+=.04;this.x+=this.vx;this.y+=this.vy;this.l--}
-  d(){ctx.fillStyle=this.c;ctx.fillRect(this.x,this.y,2,2)}
+/* ================= PARTICLES ================= */
+let particles = [];
+class Particle{
+  constructor(x,y,vx,vy,color){
+    this.x=x; this.y=y;
+    this.vx=vx; this.vy=vy;
+    this.life=80;
+    this.color=color;
+  }
+  update(){
+    this.vy += 0.04;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life--;
+  }
+  draw(){
+    ctx.fillStyle=this.color;
+    ctx.fillRect(this.x,this.y,2,2);
+  }
 }
 
-function burst(x,y,shape){
-  const cols=["#ff4242","#ffd43b","#5fa2ff","#8b5cf6"];
-  if(!shape){
-    for(let i=0;i<120;i++){
-      const a=Math.random()*Math.PI*2,s=Math.random()*6+3;
-      particles.push(new P(x,y,Math.cos(a)*s,Math.sin(a)*s,cols[i%cols.length]));
-    }
-  } else {
-    shape.forEach(p=>{
-      particles.push(new P(w/2,h/2,(p.x-w/2)/18,(p.y-h/2)/18,cols[Math.random()*4|0]));
+/* ================= FIREWORK ================= */
+function firework(x,y){
+  const colors=["#ff3b3b","#ffd93b","#5fa2ff","#8b5cf6"];
+  for(let i=0;i<100;i++){
+    const a=Math.random()*Math.PI*2;
+    const s=Math.random()*5+3;
+    particles.push(
+      new Particle(x,y,Math.cos(a)*s,Math.sin(a)*s,colors[i%colors.length])
+    );
+  }
+}
+
+/* ================= 2026 POINTS ================= */
+const points2026 = [
+  [0,0],[20,0],[40,0],[60,0],[80,0],
+  [0,20],[80,20],
+  [0,40],[80,40],
+  [0,60],[20,60],[40,60],[60,60],[80,60]
+];
+
+/* ================= LOOP ================= */
+let start = performance.now();
+function loop(time){
+  ctx.fillStyle="rgba(6,10,22,0.25)";
+  ctx.fillRect(0,0,w,h);
+
+  particles = particles.filter(p=>p.life>0);
+  particles.forEach(p=>{p.update();p.draw();});
+
+  const t = time - start;
+
+  /* RANDOM BURSTS */
+  if(t < 4000 && Math.random() < 0.08){
+    firework(Math.random()*w, Math.random()*h*0.6);
+  }
+
+  /* FORM 2026 */
+  if(t > 4000 && t < 4100){
+    const cx = w/2 - 160;
+    const cy = h/2 - 40;
+    points2026.forEach((p,i)=>{
+      firework(cx + p[0]*4 + i*120, cy + p[1]*4);
     });
   }
-}
 
-function textShape(txt){
-  const c=document.createElement("canvas"),x=c.getContext("2d");
-  c.width=w;c.height=h;
-  x.font="bold 200px Inter";
-  x.fillText(txt,w/2-220,h/2);
-  const d=x.getImageData(0,0,w,h).data,r=[];
-  for(let y=0;y<h;y+=6)for(let x1=0;x1<w;x1+=6)
-    if(d[(y*w+x1)*4+3]>150)r.push({x:x1,y});
-  return r;
-}
-const shape2026=textShape("2026");
-
-(function loop(){
-  ctx.fillStyle="rgba(6,10,22,.25)";
-  ctx.fillRect(0,0,w,h);
-  particles=particles.filter(p=>p.l>0);
-  particles.forEach(p=>{p.u();p.d()});
-  const t=performance.now()-start;
-  if(t<4000&&Math.random()<.05)burst(Math.random()*w,Math.random()*h*.6);
-  if(t>4000&&t<4100)burst(w/2,h/2,shape2026);
-  if(t>9000){
+  /* TRANSITION */
+  if(t > 9000){
     document.getElementById("intro").classList.add("hidden");
-    document.getElementById("app").classList.add("show");
+    document.getElementById("site").classList.add("show");
     return;
   }
+
   requestAnimationFrame(loop);
-})();
+}
+
+loop(performance.now());
 </script>
 
 </body>
